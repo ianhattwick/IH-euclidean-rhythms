@@ -133,8 +133,8 @@ For our javascript implementation we utilize two functions. The first calculates
 
 ```
 //calculate a euclidean rhythm
-function euclid( steps,  pulses, rotate){
-	seq = []; //empty current track
+function euclid(seq, steps,  pulses, rotate){
+	seq = []; //empty the array which stores the rhythm
 	var bucket = 0;
 	
 	//fill track with rhythm
@@ -147,11 +147,6 @@ function euclid( steps,  pulses, rotate){
 			seq.push(0);
 		}
  	}
-
-	//rotate
-	if(rotate > 0) seq = rotateSeq(seq, steps, rotate);
-	//send output visualization
-	sendOutput(seq);
 }
 ```
 
@@ -170,14 +165,14 @@ function rotateSeq(seq2, steps, rotate){
 ```
 
 <b>Querying the current beat</b>
+
 Finally, we have a function for querying the ```seq``` array to find out if there is a pulse on the current beat:
 
 ```
 //send triggers
-function msg_int(val){
-	var curStep = val % curSteps;
-	outlet(0, seq[curStep]);
+function query_beat(curBeat){
+	var curStep = curBeat % curSteps; //wraps beat around if it is higher than the number of steps
+	return seq[curStep];
 }
 ```
 
-[3over8static] IH-euclidean-rhythms/3over8_final.jpg
