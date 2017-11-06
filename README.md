@@ -22,7 +22,8 @@ The essential strategy for our algorithm is to use a bucket whose size is equal
 
 Here it is in pseudo-code:
 
-```bucket = bucket + numberOfPulses
+```
+bucket = bucket + numberOfPulses
 
 if (bucket >= totalSteps) {
 	bucket = bucket - totalSteps
