@@ -36,14 +36,16 @@ for (each step) {
 
 That’s it! Let’s take a look at an example of the result using 3 pulses over 8 steps:
 
-![](https://raw.githubusercontent.com/ianhattwick/IH-euclidean-rhythms/testing/3over8_final.jpg)
+![](https://raw.githubusercontent.com/ianhattwick/IH-euclidean-rhythms/testing/euclid3over8.gif)
 
 On the left of the vertical line we can see the total number of steps and number of pulses, for reference. 
 Note that the first circle of each pulse is a darker color, enabling us to keep track of different pulses
 in the bucket.
+
 On the right of the line we see the bucket for each step. On the first step we add the number of pulses to the bucket. 
 We do the same in the second step, for a total of six. When we add the pulses on step 3 we find that the bucket has overflowed, indicating that a pulse will occur on that step, so we indicate the pulse and then subtract the total steps from the bucket. Note the overflow is from step 3 is at the bottom of step 4, above which we again add the number of pulses. We continue this process for each step, until the final step in which we find that the bucket is exactly filled, indicating the location of our final pulse.
 
+ 
 So, how do we know that this process generates the correct distribution? Without going into a mathematical proof, 
 we can note that with this process the final pulse will always land on the final step, with the bucket just filled up. Essentially, the number of pulses will always divide perfectly into the number of (steps*pulses) contained in all of the buckets. This guarantees there is no remainder, which might push a pulse too early or late and thus out of a perfectly even distribution.
 
