@@ -23,27 +23,47 @@ The essential strategy for our algorithm is to use a bucket whose size is equal
 Here it is in pseudo-code:
 
 <code>bucket = bucket + numberOfPulses</code>
+
 <code>
 if (bucket &gt;= totalSteps) {
-bucket = bucket - totalSteps
-thisStep = containsPulse
+
+	bucket = bucket - totalSteps
+	
+	qthisStep = containsPulse
+	
 } else if (bucket &lt; totalSteps) thisStep = noPulse</code>
 
 That’s it! Let’s take a look at an example of the result using 3 pulses over 8 steps:
 
 ![](https://raw.githubusercontent.com/ianhattwick/IH-euclidean-rhythms/testing/3over8_final.jpg)
 
-On the left of the vertical line we can see the total number of steps and number of pulses, for reference. On the right of the line we see the bucket for each step. On the first step we add the number of pulses to the bucket. We do the same in the second step, for a total of six. When we add the pulses on step 3 we find that the bucket has overflowed, indicating that a pulse will occur on that step, so we indicate the pulse and then subtract the total steps from the bucket. Note the overflow is from step 3 is at the bottom of step 4, above which we again add the number of pulses. We continue this process for each step, until the final step in which we find that the bucket is exactly filled, indicating the location of our final pulse.
+On the left of the vertical line we can see the total number of steps and number of pulses, for reference. 
+Note that the first circle of each pulse is a darker color, enabling us to keep track of different pulses
+in the bucket.
+On the right of the line we see the bucket for each step. On the first step we add the number of pulses to the bucket. 
+We do the same in the second step, for a total of six. When we add the pulses on step 3 we find that the bucket has overflowed, indicating that a pulse will occur on that step, so we indicate the pulse and then subtract the total steps from the bucket. Note the overflow is from step 3 is at the bottom of step 4, above which we again add the number of pulses. We continue this process for each step, until the final step in which we find that the bucket is exactly filled, indicating the location of our final pulse.
 
-So, how do we know that this process generates the correct distribution? Without going into a mathematical proof, we can note that with this process the final pulse will always land on the final step, with the bucket just filled up. Essentially, the number of pulses will always divide perfectly into the number of (steps*pulses) contained in all of the buckets. This guarantees there is no remainder, which might push a pulse too early or late and thus out of a perfectly even distribution.
+So, how do we know that this process generates the correct distribution? Without going into a mathematical proof, 
+we can note that with this process the final pulse will always land on the final step, with the bucket just filled up. Essentially, the number of pulses will always divide perfectly into the number of (steps*pulses) contained in all of the buckets. This guarantees there is no remainder, which might push a pulse too early or late and thus out of a perfectly even distribution.
 
 <b>Rotating rhythms</b>
 
-One thing you might notice from our first example is that there is never a pulse on step 1 (unless the number of pulses is equal to the number of steps, which would be pointless), and in fact rhythms are always aligned so that the last pulse is on the last step. There are a couple of reasons why we might want to change this. The first is that it is common to have the first pulse of a rhythm land on the first step, and this also makes rhythms a bit easier to understand conceptually. Second, we might want to rotate a rhythm by an arbitrary number of steps - in fact it is actually pretty common for rhythms to start on the second or third pulse.
+One thing you might notice from our first example is that there is never a pulse on step 1 (unless the number of 
+pulses is equal to the number of steps, which would be pointless), and in fact rhythms are always aligned so that 
+the last pulse is on the last step. There are a couple of reasons why we might want to change this. The first is 
+that it is common to have the first pulse of a rhythm land on the first step, and this also makes rhythms a bit 
+easier to understand conceptually. Second, we might want to rotate a rhythm by an arbitrary number of steps - in 
+fact it is actually pretty common for rhythms to start on the second or third pulse.
 
-Let’s take a look at two different approaches for solving these problems. First, to make it so there is always a pulse on the first step we can  make a change to our initial algorithm: for step 1, and only step 1, we will add the number of steps to the bucket <i>instead</i> of adding the number of pulses. As described on line 2 of our algorithm, this will indicate a pulse on the first step, and the second step will begin with an empty bucket after the number of steps are subtracted. This is the approach taken by the algorithm as described by 11olsen.
+Let’s take a look at two different approaches for solving these problems. First, to make it so there is always a 
+pulse on the first step we can  make a change to our initial algorithm: for step 1, and only step 1, we will add 
+the number of steps to the bucket <i>instead</i> of adding the number of pulses. As described on line 2 of our algorithm, 
+this will indicate a pulse on the first step, and the second step will begin with an empty bucket after the number of steps 
+are subtracted. This is the approach taken by the algorithm as described by 11olsen.
 
-This approach demonstrates the powerful impulse to have the first pulse on the first step, in that it makes an explicit change to the code in order to force this to happen. But we can also make this happen by implementing a more general rotation algorithm. Essentially, what we will do is generate a rhythm in the same way but rotate the rhythm a certain number of steps to the right, and when a step rotates past the total steps we will wrap it around to the beginning of the sequence. Here is an example:
+This approach demonstrates the powerful impulse to have the first pulse on the first step, in that it makes an 
+explicit change to the code in order to force this to happen. But we can also make this happen by implementing a 
+more general rotation algorithm. Essentially, what we will do is generate a rhythm in the same way but rotate the rhythm a certain number of steps to the right, and when a step rotates past the total steps we will wrap it around to the beginning of the sequence. Here is an example:
 
 So the end result is that if we want to force the first step to have a pulse, we will simply rotate the rhythm by 1 step.
 
