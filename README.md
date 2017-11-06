@@ -25,8 +25,11 @@ Here it is in pseudo-code:
 <code>bucket = bucket + numberOfPulses
 
 if (bucket &gt;= totalSteps) {
+
 	bucket = bucket - totalSteps
+	
 	qthisStep = containsPulse
+	
 } else if (bucket &lt; totalSteps) thisStep = noPulse</code>
 
 That’s it! Let’s take a look at an example of the result using 3 pulses over 8 steps:
