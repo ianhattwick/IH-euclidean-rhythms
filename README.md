@@ -24,11 +24,12 @@ Here it is in pseudo-code:
 
 ```bucket = bucket + numberOfPulses
 
-if (bucket &gt;= totalSteps) {
+if (bucket >= totalSteps) {
 	bucket = bucket - totalSteps
-	qthisStep = containsPulse
+	thisStep = containsPulse
 	
-} else if (bucket &lt; totalSteps) thisStep = noPulse```
+} else if (bucket < totalSteps) thisStep = noPulse
+```
 
 That’s it! Let’s take a look at an example of the result using 3 pulses over 8 steps:
 
