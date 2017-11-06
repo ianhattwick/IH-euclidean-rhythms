@@ -67,8 +67,7 @@ Here it is in pseudo-code:
 That’s it! Let’s take a look at an example of the result using 3 pulses
 over 8 steps:
 
-![](https://raw.githubusercontent.com/ianhattwick/IH-euclidean-rhythms/
-testing/euclid3over8.gif)
+![](https://raw.githubusercontent.com/ianhattwick/IH-euclidean-rhythms/testing/euclid3over8.gif)
 
 On the left of the vertical line we can see the total number of steps
 and number of pulses, for reference. Note that the first circle of each
