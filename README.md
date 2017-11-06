@@ -23,13 +23,15 @@ The essential strategy for our algorithm is to use a bucket whose size is equal
 Here it is in pseudo-code:
 
 ```
-bucket = bucket + numberOfPulses
+for (each step) {
+	bucket = bucket + numberOfPulses
 
-if (bucket >= totalSteps) {
-	bucket = bucket - totalSteps
-	thisStep = containsPulse
+	if (bucket >= totalSteps) {
+		bucket = bucket - totalSteps
+		thisStep = containsPulse
 	
-} else if (bucket < totalSteps) thisStep = noPulse
+	} else if (bucket < totalSteps) thisStep = noPulse
+}
 ```
 
 That’s it! Let’s take a look at an example of the result using 3 pulses over 8 steps:
