@@ -31,7 +31,7 @@ thisStep = containsPulse
 
 That’s it! Let’s take a look at an example of the result using 3 pulses over 8 steps:
 
-[3over8_final.jpg]
+![][3over8static]
 
 On the left of the vertical line we can see the total number of steps and number of pulses, for reference. On the right of the line we see the bucket for each step. On the first step we add the number of pulses to the bucket. We do the same in the second step, for a total of six. When we add the pulses on step 3 we find that the bucket has overflowed, indicating that a pulse will occur on that step, so we indicate the pulse and then subtract the total steps from the bucket. Note the overflow is from step 3 is at the bottom of step 4, above which we again add the number of pulses. We continue this process for each step, until the final step in which we find that the bucket is exactly filled, indicating the location of our final pulse.
 
@@ -50,3 +50,5 @@ So the end result is that if we want to force the first step to have a pulse, we
 <b>Implementation</b>
 
 For our javascript implementation we utilize two functions. The first
+
+[3over8static] IH-euclidean-rhythms/3over8_final.jpg
