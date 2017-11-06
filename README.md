@@ -137,7 +137,7 @@ function euclid(seq, steps,  pulses, rotate){
 	seq = []; //empty the array which stores the rhythm
 	var bucket = 0;
 	
-	//fill track with rhythm
+	//fill array with rhythm
 	for(var i=0;i< steps;i++){
 		bucket += pulses;
 		if(bucket >= steps) {
@@ -150,7 +150,7 @@ function euclid(seq, steps,  pulses, rotate){
 }
 ```
 
-The second function is a sub-function which carries out the rotation:
+The second function carries out the rotation:
 
 ```
 //rotate a sequence
