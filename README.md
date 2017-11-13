@@ -55,15 +55,16 @@ empty the bucket and any overflow is added back to the empty bucket.
 
 Here it is in pseudo-code:
 
-``` for (each step) { 
-		bucket = bucket + numberOfPulses
+``` 
+for (each step) { 
+	bucket = bucket + numberOfPulses
 
-		if (bucket >= totalSteps) { 
-			bucket = bucket - totalSteps 
-			thisStep = containsPulse
-		} 
-		else if (bucket < totalSteps) thisStep = noPulse
+	if (bucket >= totalSteps) { 
+		bucket = bucket - totalSteps 
+		thisStep = containsPulse
 	} 
+	else if (bucket < totalSteps) thisStep = noPulse
+} 
 ```
 
 That’s it! Let’s take a look at an example of the result using 3 pulses
