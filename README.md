@@ -144,13 +144,13 @@ function euclid(seq, steps,  pulses){
 	var bucket = 0; //out variable to add pulses together for each step
 	
 	//fill array with rhythm
-	for(var i=0;i< steps;i++){
+	for( var i=0 ; i < steps ; i++){
 		bucket += pulses;
 		if(bucket >= steps) {
 			bucket -= steps;
-			seq.push(1);
+			seq.push(1); //'1' indicates a pulse on this beat
 		} else {
-			seq.push(0);
+			seq.push(0); //'0' indicates no pulse on this beat
 		}
  	}
 }
@@ -163,7 +163,7 @@ The second function carries out the rotation:
 function rotateSeq(seq, rotate){
 	var output = new Array(seq.length); //new array to store shifted rhythm
 	var val = seq.length - rotate;
-	for(var i=0;i<seq.length;i++){
+	for( var i=0; i < seq.length ; i++){
 		output[i] = seq[ Math.abs( (i+val) % seq.length) ];
 	}
 	return output;
