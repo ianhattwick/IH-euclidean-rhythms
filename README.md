@@ -50,18 +50,20 @@ unusual numbers of steps.
 The essential strategy for our algorithm is to use a bucket whose size
 is equal to the total number of steps, and for each step in the cycle to
 add the number of pulses to the bucket. We will decide that a pulse has
-occurred when the bucket reaches its maximum value, at which point we
-empty the bucket and the overflow is added back to the empty bucket.
+occurred when the bucket reaches or exceeds its maximum value, at which point we
+empty the bucket and any overflow is added back to the empty bucket.
 
 Here it is in pseudo-code:
 
-``` for (each step) { bucket = bucket + numberOfPulses
+``` for (each step) { 
+		bucket = bucket + numberOfPulses
 
-	if (bucket >= totalSteps) { bucket = bucket - totalSteps thisStep =
-	containsPulse
-
-	} else if (bucket < totalSteps) thisStep = noPulse
-	} }
+		if (bucket >= totalSteps) { 
+			bucket = bucket - totalSteps 
+			thisStep = containsPulse
+		} 
+		else if (bucket < totalSteps) thisStep = noPulse
+	} 
 ```
 
 That’s it! Let’s take a look at an example of the result using 3 pulses
@@ -79,7 +81,7 @@ step we add the number of pulses to the bucket. We do the same in the
 second step, for a total of six. When we add the pulses on step 3 we
 find that the bucket has overflowed, indicating that a pulse will occur
 on that step, so we indicate the pulse and then subtract the total steps
-from the bucket. Note the overflow is from step 3 is at the bottom of
+from the bucket. Note the overflow from step 3 is found at the bottom of
 step 4, above which we again add the number of pulses. We continue this
 process for each step, until the final step in which we find that the
 bucket is exactly filled, indicating the location of our final pulse.
@@ -112,29 +114,33 @@ step 1, we will add the number of steps to the bucket <i>instead</i> of
 adding the number of pulses. As described on line 2 of our algorithm,
 this will indicate a pulse on the first step, and the second step will
 begin with an empty bucket after the number of steps are subtracted.
-This is the approach taken by the algorithm as described by 11olsen.
-
-This approach demonstrates the powerful impulse to have the first pulse
+This is the approach taken by the algorithm as described by 11olsen. This approach demonstrates the powerful impulse to have the first pulse
 on the first step, in that it makes an explicit change to the code in
-order to force this to happen. But we can also make this happen by
+order to force this to happen. 
+
+But we can also make this happen by
 implementing a more general rotation algorithm. Essentially, what we
-will do is generate a rhythm in the same way but rotate the rhythm a
-certain number of steps to the right, and when a step rotates past the
+will do is generate a rhythm in the same way and rotate the rhythm a number of steps to the right, and when a step rotates past the
 total steps we will wrap it around to the beginning of the sequence.
-Here is an example:
+Here is an example with a rotation of 1:
+
+![](https://raw.githubusercontent.com/ianhattwick/IH-euclidean-rhythms/testing/euclid3over8rot1.jpg)
 
 So the end result is that if we want to force the first step to have a
 pulse, we will simply rotate the rhythm by 1 step.
 
 <b>Implementation</b>
 
-For our javascript implementation we utilize two functions. The first calculates the basic euclidean rhythm, given a number of steps, pulses, and rotation.
+For our javascript implementation we utilize two functions. The first calculates the basic euclidean rhythm, given a number of steps and pulses.
 
 ```
 //calculate a euclidean rhythm
-function euclid(seq, steps,  pulses, rotate){
-	seq = []; //empty the array which stores the rhythm
-	var bucket = 0;
+function euclid(seq, steps,  pulses){
+	seq = []; //empty array which stores the rhythm.
+	//the length of the array is equal to the number of steps
+	//a value of 1 for each array element indicates a pulse
+	
+	var bucket = 0; //out variable to add pulses together for each step
 	
 	//fill array with rhythm
 	for(var i=0;i< steps;i++){
@@ -153,11 +159,11 @@ The second function carries out the rotation:
 
 ```
 //rotate a sequence
-function rotateSeq(seq2, steps, rotate){
-	var output = new Array(steps);
-	var val = steps - rotate;
-	for(var i=0;i<seq2.length;i++){
-		output[i] = seq2[ Math.abs( (i+val) % seq2.length) ];
+function rotateSeq(seq, rotate){
+	var output = new Array(seq.length); //new array to store shifted rhythm
+	var val = seq.length - rotate;
+	for(var i=0;i<seq.length;i++){
+		output[i] = seq[ Math.abs( (i+val) % seq.length) ];
 	}
 	return output;
 }
